@@ -8,4 +8,10 @@
     <h3>All Tasks:</h3>
 </div>
 
+<ul>
+    {% for task in tasks %}
+        <li>{{ task.task }}</li>
+    {% endfor %}
+</ul>
+
 {% endblock %}
