@@ -5,6 +5,7 @@ namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 use App\Entity\Task;
 
 class TaskController extends AbstractController
@@ -26,18 +27,25 @@ class TaskController extends AbstractController
     /**
      * @Route("/tasks/create", name="create-task")
      */
-    public function create() : Response
+    public function create(ValidatorInterface $validator) : Response
     {
         $entityManager = $this->getDoctrine()->getManager();
-        
+
         $task = new Task();
-        $task->setTask("Refactor code on project");
+        $task->setTask("Drink More Espresso");
         $task->setCompleted(false);
-        $task->setNote("This is important!");
+        $task->setNotes(222);
 
-        $entityManager->persist($task);
-        $entityManager->flush();
+        $errors = $validator->validate($task);
 
-        return new Response("New Task Created!");
+        if(count($errors) > 0)
+        {
+            return new Response((string) $errors, 400);
+        }
+        {
+            $entityManager->persist($task);
+            $entityManager->flush();
+            return new Response("New Task Created!");
+        }
     }
 }
