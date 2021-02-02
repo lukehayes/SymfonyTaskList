@@ -20,7 +20,7 @@ class Task
     /**
      * @ORM\Column(type="text")
      */
-    private $Task;
+    private $task;
 
     /**
      * @ORM\Column(type="boolean", nullable=true)
@@ -39,12 +39,12 @@ class Task
 
     public function getTask(): ?string
     {
-        return $this->Task;
+        return $this->task;
     }
 
-    public function setTask(string $Task): self
+    public function setTask(string $task): self
     {
-        $this->Task = $Task;
+        $this->task = $task;
 
         return $this;
     }
