@@ -8,9 +8,29 @@
     <h3>All Tasks:</h3>
 </div>
 
+<table>
+    <th>
+        <tr>
+            <td>ID</td>
+            <td>Task</td>
+            <td>Completed</td>
+            <td>Notes</td>
+        </tr>
+    </th>
+
+    {% for task in tasks %}
+        <tr>
+            <td>{{task.id}}</td>
+            <td>{{task.task}}</td>
+            <td>{{task.completed}}</td>
+            <td>{{task.notes}}</td>
+        </tr>
+    {% endfor %}
+</table>
+
 <ul>
     {% for task in tasks %}
-        <li>{{ task.task }}</li>
+    <li>{{ task.task }} | {{task.completed}}</li>
     {% endfor %}
 </ul>
 
