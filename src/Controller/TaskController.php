@@ -25,6 +25,26 @@ class TaskController extends AbstractController
     }
 
     /**
+     * @Route("/tasks/remove/{id}", name="destroy-task")
+     */
+    public function destroy(int $id) : Response
+    {
+        $entityManager = $this->getDoctrine()->getManager();
+
+        $task = $this->getDoctrine()
+                 ->getRepository(Task::class)
+                 ->find($id);
+
+        if(!$task)
+            throw $this->createNotFoundException("The task with ID {$id} could not be found.");
+
+        $entityManager->remove($task);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('tasks');
+    }
+
+    /**
      * @Route("/tasks/{id}", name="show-task")
      */
     public function show(int $id) : Response
