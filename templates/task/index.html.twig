@@ -25,6 +25,7 @@
             <td>{{task.completed}}</td>
             <td>{{task.notes}}</td>
             <td><a href="{{ url('show-task',{'id' : task.id})}}">Show</a></td>
+            <td><a href="{{ url('update-task',{'id' : task.id})}}">Update</a></td>
             <td><a href="{{ url('destroy-task',{'id' : task.id})}}">Destroy</a></td>
         </tr>
     {% endfor %}
