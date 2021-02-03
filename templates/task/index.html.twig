@@ -4,30 +4,34 @@
 
 {% block body %}
 
-<div class="tasks">
-    <h3>All Tasks:</h3>
+<div class="pure-g center">
+    <div class="pure-u-1">
+        <div class="tasks">
+            <h3>All Tasks:</h3>
+        </div>
+    </div>
 </div>
 
-<table>
-    <th>
+<table class="pure-table">
+    <thead>
         <tr>
             <td>ID</td>
             <td>Task</td>
             <td>Completed</td>
             <td>Notes</td>
         </tr>
-    </th>
+    </thead>
 
     {% for task in tasks %}
-        <tr>
-            <td>{{task.id}}</td>
-            <td>{{task.task}}</td>
-            <td>{{task.completed}}</td>
-            <td>{{task.notes}}</td>
-            <td><a href="{{ url('show-task',{'id' : task.id})}}">Show</a></td>
-            <td><a href="{{ url('update-task',{'id' : task.id})}}">Update</a></td>
-            <td><a href="{{ url('destroy-task',{'id' : task.id})}}">Destroy</a></td>
-        </tr>
+    <tr>
+        <td>{{task.id}}</td>
+        <td>{{task.task}}</td>
+        <td>{{task.completed}}</td>
+        <td>{{task.notes}}</td>
+        <td><a class="pure-button" href="{{ url('show-task',{'id' : task.id})}}">Show</a></td>
+        <td><a class="pure-button" href="{{ url('update-task',{'id' : task.id})}}">Update</a></td>
+        <td><a class="pure-button" href="{{ url('destroy-task',{'id' : task.id})}}">Destroy</a></td>
+    </tr>
     {% endfor %}
 </table>
 
