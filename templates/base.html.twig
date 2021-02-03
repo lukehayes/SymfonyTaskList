@@ -4,7 +4,8 @@
         <meta charset="UTF-8">
         <title>{% block title %}Welcome!{% endblock %}</title>
         {% block stylesheets %}
-            <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" title="" type="">
+        <link rel="stylesheet" href="https://unpkg.com/purecss@2.0.5/build/pure-min.css" integrity="sha384-LTIDeidl25h2dPxrB2Ekgc9c7sEC3CWGM6HeFmuDNUjX76Ert4Z4IY714dhZHPLd" crossorigin="anonymous">
+        <link rel="stylesheet" href="{{absolute_url('css/style.css')}}" title="" type="">
         {% endblock %}
 
         {% block javascripts %}{% endblock %}
@@ -12,9 +13,9 @@
     <body>
 
         {% for message in app.flashes('notice')%}
-            <div class="flash flash-notice">
-                <p>{{message}}</p>
-            </div>
+        <div class="flash flash-notice">
+            <p>{{message}}</p>
+        </div>
         {% endfor %}
 
         {% block body %}{% endblock %}
