@@ -13,7 +13,7 @@ class TaskController extends AbstractController
     /**
      * @Route("/tasks", name="tasks")
      */
-    public function index(): Response
+    public function index() : Response
     {
         $tasks = $this->getDoctrine()
                  ->getRepository(Task::class)
@@ -21,6 +21,23 @@ class TaskController extends AbstractController
 
         return $this->render('task/index.html.twig', [
             'tasks' =>  $tasks
+        ]);
+    }
+
+    /**
+     * @Route("/tasks/{id}", name="show-task")
+     */
+    public function show(int $id) : Response
+    {
+        $task = $this->getDoctrine()
+                 ->getRepository(Task::class)
+                 ->find($id);
+
+        if(!$task)
+            throw $this->createNotFoundException("The task with ID {$id} could not be found.");
+
+        return $this->render('task/show.html.twig', [
+            'task' =>  $task
         ]);
     }
 
