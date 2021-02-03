@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Showing Task {{task.id}}{% endblock %}
+
+{% block body %}
+
+<div class="task">
+    <h3>{{task.task}}</h3>
+    <span>{{task.notes}}</span>
+</div>
+
+{% endblock %}
