@@ -41,6 +41,7 @@ class TaskController extends AbstractController
         $task->setNotes("");
         $entityManager->flush();
 
+        $this->addFlash('notice', 'The task has been updated.');
         return $this->redirectToRoute('tasks');
     }
 
@@ -49,6 +50,7 @@ class TaskController extends AbstractController
      */
     public function destroy(int $id) : Response
     {
+
         $entityManager = $this->getDoctrine()->getManager();
 
         $task = $this->getDoctrine()
@@ -60,6 +62,8 @@ class TaskController extends AbstractController
 
         $entityManager->remove($task);
         $entityManager->flush();
+
+        $this->addFlash('notice', 'The task has been deleted.');
 
         return $this->redirectToRoute('tasks');
     }
