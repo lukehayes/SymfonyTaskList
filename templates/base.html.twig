@@ -12,6 +12,17 @@
     </head>
     <body>
 
+        <div class="pure-menu pure-menu-horizontal">
+            <nav class="pure-menu-list">
+                <div class="pure-menu-item">
+                    <a class="pure-menu-link" href="{{ url('tasks') }}">Tasks</a>
+                </div>
+                <div class="pure-menu-item">
+                    <a class="pure-menu-link" href="{{ url('new-task') }}">New Task</a>
+                </div>
+            </nav>
+        </div>
+
         {% for message in app.flashes('notice')%}
         <div class="flash flash-notice">
             <p>{{message}}</p>
