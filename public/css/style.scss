@@ -4,5 +4,9 @@ $light-grey: #F4F5F7;
 $accent: #030FFC;
 
 * {
-    background-color: $light-grey;
+    //background-color: $light-grey;
+}
+
+.center {
+    justify-content: center;
 }
