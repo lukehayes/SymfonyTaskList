@@ -50,9 +50,6 @@ class TaskController extends AbstractController
      */
     public function destroy(int $id) : Response
     {
-
-        $entityManager = $this->getDoctrine()->getManager();
-
         $task = $this->getDoctrine()
                  ->getRepository(Task::class)
                  ->find($id);
@@ -60,8 +57,8 @@ class TaskController extends AbstractController
         if(!$task)
             throw $this->createNotFoundException("The task with ID {$id} could not be found.");
 
-        $entityManager->remove($task);
-        $entityManager->flush();
+        $this->manager()->remove($task);
+        $this->manager()->flush();
 
         $this->addFlash('notice', 'The task has been deleted.');
 
@@ -86,12 +83,36 @@ class TaskController extends AbstractController
     }
 
     /**
+     * @Route("/tasks/new", name="new-task")
+     */
+    public function new(Request $request) : Response
+    {
+        $task = new Task();
+
+        $form = $this->createFormBuilder($task)
+            ->add('task', TextType::class)
+            ->add('notes', TextType::class)
+            ->add('save', SubmitType::class, ['label' => 'Add a new task'])
+            ->getForm();
+
+
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid())
+        {
+            dump($form->getData());
+        }
+
+
+        return $this->render('task/new.html.twig', [
+            'form' =>  $form->createView()
+        ]);
+    }
+    /**
      * @Route("/tasks/create", name="create-task")
      */
     public function create(ValidatorInterface $validator) : Response
     {
-        $entityManager = $this->getDoctrine()->getManager();
-
         $task = new Task();
         $task->setTask("Drink More Espresso");
         $task->setCompleted(false);
@@ -104,9 +125,14 @@ class TaskController extends AbstractController
             return new Response((string) $errors, 400);
         }
         {
-            $entityManager->persist($task);
-            $entityManager->flush();
+            $this->manager()->persist($task);
+            $this->manager()->flush();
             return new Response("New Task Created!");
         }
+    }
+
+    private function manager()
+    {
+        return $this->getDoctrine()->getManager();
     }
 }
