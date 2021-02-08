@@ -5,6 +5,7 @@ namespace App\Form;
 use App\Entity\Task;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class TaskType extends AbstractType
@@ -13,8 +14,8 @@ class TaskType extends AbstractType
     {
         $builder
             ->add('task')
-            ->add('completed')
             ->add('notes')
+            ->add('Save', SubmitType::class)
         ;
     }
 
