@@ -4,8 +4,11 @@ namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use App\Entity\Task;
 
 class TaskController extends AbstractController
@@ -27,7 +30,7 @@ class TaskController extends AbstractController
     /**
      * @Route("/tasks/update/{id}", name="update-task")
      */
-    public function update(int $id) : Response
+    public function update(int $id, Request $request) : Response
     {
         $entityManager = $this->getDoctrine()->getManager();
 
@@ -38,11 +41,25 @@ class TaskController extends AbstractController
         if(!$task)
             throw $this->createNotFoundException("The task with ID {$id} could not be found.");
 
-        $task->setNotes("");
-        $entityManager->flush();
+        $form = $this->createFormBuilder($task)
+            ->add('task', TextType::class)
+            ->add('notes', TextType::class)
+            ->add('save', SubmitType::class, ['label' => 'Add a new task'])
+            ->getForm();
 
-        $this->addFlash('notice', 'The task has been updated.');
-        return $this->redirectToRoute('tasks');
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid())
+        {
+            $this->manager()->persist($task);
+            $this->manager()->flush();
+            $this->addFlash('notice', 'The task has been updated.');
+            return $this->redirectToRoute("tasks");
+        }
+
+        return $this->render('task/update.html.twig', [
+            'task' =>  $task,
+            'form' => $form->createView()
+        ]);
     }
 
     /**
@@ -91,18 +108,17 @@ class TaskController extends AbstractController
 
         $form = $this->createFormBuilder($task)
             ->add('task', TextType::class)
-            ->add('notes', TextType::class)
+            ->add('notes', TextType::class, ['required' => false])
             ->add('save', SubmitType::class, ['label' => 'Add a new task'])
             ->getForm();
 
-
         $form->handleRequest($request);
-
         if($form->isSubmitted() && $form->isValid())
         {
-            dump($form->getData());
+            $this->manager()->persist($task);
+            $this->manager()->flush();
+            return $this->redirectToRoute("tasks");
         }
-
 
         return $this->render('task/new.html.twig', [
             'form' =>  $form->createView()
