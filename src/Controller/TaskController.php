@@ -10,6 +10,7 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use App\Entity\Task;
+use App\Form\TaskType;
 
 class TaskController extends AbstractController
 {
@@ -32,8 +33,6 @@ class TaskController extends AbstractController
      */
     public function update(int $id, Request $request) : Response
     {
-        $entityManager = $this->getDoctrine()->getManager();
-
         $task = $this->getDoctrine()
                  ->getRepository(Task::class)
                  ->find($id);
@@ -41,11 +40,8 @@ class TaskController extends AbstractController
         if(!$task)
             throw $this->createNotFoundException("The task with ID {$id} could not be found.");
 
-        $form = $this->createFormBuilder($task)
-            ->add('task', TextType::class)
-            ->add('notes', TextType::class)
-            ->add('save', SubmitType::class, ['label' => 'Add a new task'])
-            ->getForm();
+        $form = $this->createForm(TaskType::class, $task);
+
 
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid())
@@ -106,11 +102,7 @@ class TaskController extends AbstractController
     {
         $task = new Task();
 
-        $form = $this->createFormBuilder($task)
-            ->add('task', TextType::class)
-            ->add('notes', TextType::class, ['required' => false])
-            ->add('save', SubmitType::class, ['label' => 'Add a new task'])
-            ->getForm();
+        $form = $this->createForm(TaskType::class, $task);
 
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid())
