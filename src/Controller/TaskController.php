@@ -66,7 +66,7 @@ class TaskController extends AbstractController
     }
 
     /**
-     * @Route("/tasks/{id}", name="show-task")
+     * @Route("/tasks/show/{id}", name="show-task")
      */
     public function show(int $id) : Response
     {
