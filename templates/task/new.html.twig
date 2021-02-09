@@ -4,10 +4,46 @@
 
 {% block body %}
 
-<div class="task">
-    <h3>Create a new Task!</h3>
+<div class="section">
+    <div class="container">
+        <div class="task">
+            <h3>Create a new Task!</h3>
+        </div>
+    </div>
 </div>
 
-{{form(form)}}
+<div class="section">
+    <div class="container">
 
+        {{form_start(form)}}
+            {{form_errors(form)}}
+
+            <div class="field">
+                <div class="control">
+                    <label class="label">
+                        {{form_label(form.task)}}
+                    </label>
+                    {{form_widget(form.task, { 'attr': {'class': 'input'} })}}
+                </div>
+            </div>
+
+            <div class="field">
+                <div class="control">
+                    <label class="label">
+                        {{form_label(form.notes)}}
+                    </label>
+                    {{form_widget(form.notes, { 'attr': {'class': 'input'} })}}
+                </div>
+            </div>
+
+            <div class="field">
+                <div class="control">
+                    {{form_widget(form.save, {'label': 'Save', 'attr': {'class' : 'button'} })}}
+                </div>
+            </div>
+
+
+        {{form_end(form)}}
+    </div>
+</div>
 {% endblock %}
