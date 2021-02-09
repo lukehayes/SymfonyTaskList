@@ -4,9 +4,30 @@
 
 {% block body %}
 
-<div class="task">
-    <h3>{{task.task}}</h3>
-    <span>{{task.notes}}</span>
+<div class="section">
+    <div class="container">
+        <div class="card ">
+
+            <div class="card-header">
+                <h3 class="card-header-title">{{task.task}}</h3>
+            </div>
+
+            <div class="card-content">
+                <span>{{task.notes}}</span>
+            </div>
+
+            <div class="card-footer">
+
+                <div class="card-footer-item">
+                    <a class="button is-small is-success" href="{{ url('update-task', {'id' : task.id}) }}">Update</a>
+                </div>
+
+                <div class="card-footer-item">
+                    <a class="button is-small is-danger" href="{{ url('destroy-task', {'id' : task.id}) }}">Delete</a>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 {% endblock %}
