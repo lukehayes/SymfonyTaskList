@@ -3,9 +3,13 @@
 namespace App\Form;
 
 use App\Entity\Task;
+use App\Entity\Category;
+use App\Form\CategoryType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\ChoiceList\ChoiceList;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class TaskType extends AbstractType
@@ -15,6 +19,10 @@ class TaskType extends AbstractType
         $builder
             ->add('task')
             ->add('notes')
+            ->add('category', EntityType::class, [
+                'class' => Category::class,
+                'choice_label' => 'name'
+            ])
             ->add('save', SubmitType::class)
         ;
     }
