@@ -30,7 +30,17 @@
             <div class="field">
                 <div class="control">
                     <label class="label">
+                        {{form_label(form.category, 'Category')}}
+                    </label>
+                    {{form_widget(form.category, { 'attr': {'class': 'nput'} })}}
+                </div>
+            </div>
+
+            <div class="field">
+                <div class="control">
+                    <label class="label">
                         {{form_label(form.notes)}}
+                        <span class="tag is-link is-light">optional</span>
                     </label>
                     {{form_widget(form.notes, { 'attr': {'class': 'input'} })}}
                 </div>

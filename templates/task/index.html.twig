@@ -31,6 +31,7 @@
                         <tr>
                             <td>ID</td>
                             <td>Task</td>
+                            <td>Category</td>
                             <td>Completed</td>
                             <td>Notes</td>
                         </tr>
@@ -40,6 +41,7 @@
                     <tr>
                         <td>{{task.id}}</td>
                         <td>{{task.task}}</td>
+                        <td>{{task.category.name}}</td>
                         <td>{{task.completed}}</td>
                         <td>{{task.notes}}</td>
                         <td><a class="button" href="{{ url('show-task',{'id' : task.id})}}">Show</a></td>

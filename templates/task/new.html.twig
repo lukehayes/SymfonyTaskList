@@ -21,7 +21,6 @@
 
                     {% if form.task.vars.errors|length %}
                     <div class="tag is-danger">
-                    <h1>{{ form.notes.vars.errors|length }}</h1>
                         {{ form_errors(form.task) }}
                     </div>
                     {% endif %}
@@ -30,6 +29,23 @@
                         {{form_label(form.task)}}
                     </label>
                     {{form_widget(form.task, { 'attr': {'class': 'input', 'required' : false} })}}
+                </div>
+            </div>
+
+            <div class="field">
+                <div class="control">
+
+
+                    <!--{% if form.notes.vars.errors|length %}-->
+                        <!--<div class="tag is-danger">-->
+                            <!--{{ form_errors(form.notes) }}-->
+                        <!--</div>-->
+                    <!--{% endif %}-->
+
+                    <label class="label">
+                        {{form_label(form.category, 'Category')}}
+                    </label>
+                    {{form_widget(form.category, { 'attr': {'class': 'nput'} })}}
                 </div>
             </div>
 
