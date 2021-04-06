@@ -47,7 +47,8 @@ class AppFixtures extends Fixture
             $task->setNotes("An example note can be here.");
 
             $category = new Category();
-            $category->setName(array_rand($categories));
+            $randCategory = $categories[array_rand($categories)];
+            $category->setName($randCategory);
 
             $task->setCategory($category);
 
