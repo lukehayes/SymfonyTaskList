@@ -336,3 +336,10 @@ $RECYCLE.BIN/
 public/css/*.css
 
 # End of https://www.toptal.com/developers/gitignore/api/symfony,phpunit,phpstorm,composer,vim,sublimetext,linux,windows,macos,osx
+
+###> symfony/webpack-encore-bundle ###
+/node_modules/
+/public/build/
+npm-debug.log
+yarn-error.log
+###< symfony/webpack-encore-bundle ###
